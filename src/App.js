@@ -1,52 +1,45 @@
-import React, {useState, useEffect} from 'react';
-import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
-import People from './People';
-import data from './data';
+import { Route, Switch, useLocation } from "react-router";
+import Sidebar from "./Sidebar";
+import Home from "./Pages/Home";
+import Team from "./Pages/Team";
+import Calender from "./Pages/Calender";
+import Documents from "./Pages/Documents";
+import Projects from "./Pages/Projects";
+import styled from "styled-components";
+import { AnimatePresence } from "framer-motion";
 
+const Pages = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: calc(2rem + 2vw);
+    background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+`;
 
 function App() {
-  const [people, setPeople] = useState(data);
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    // 02 cada cierto tiempo se actualiza, constante valoración
-     const lastIndex = people.length - 1
-    if (index < 0) {
-      setIndex(lastIndex)
-    }
-    if (index > lastIndex){
-      setIndex(0)
-    }
-  }, [index, people])
-
-  useEffect(() => {
-    // 01 cada cierto tiempo se actualiza, constante valoración
-    let slider = setInterval(() => {
-      setIndex(index + 1)
-    }, 3000);
-    return () => clearInterval(slider)
-  }, [index])
-    
+  const location = useLocation();
   return (
-  <section className="section">
-  <div className="title">
-  <h2>
-  reviews
-  </h2>
-  <div className="underline"></div>
-  </div>
-  <div className="section-center">
-  {people.map((person, personIndex) => {
-        return <People key={person.id} {...person} personIndex={personIndex} index={index} />
-  })}
-  <button className="prev" onClick={() => setIndex(index - 1)}>
-    <FiChevronLeft />
-  </button>
-  <button className="next" onClick={() => setIndex(index + 1)}>
-    <FiChevronRight />
-  </button>
-  </div>
-  </section> 
+    <>
+      <Sidebar />
+      <Pages>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route exact path="/" component={Home} />
+            <Route path="/team" component={Team} />
+            <Route path="/calender" component={Calender} />
+            <Route path="/documents" component={Documents} />
+            <Route path="/projects" component={Projects} />
+          </Switch>
+        </AnimatePresence>
+      </Pages>
+    </>
   );
 }
 
