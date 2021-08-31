@@ -1,27 +1,46 @@
 //librerias ó components
 import "./App.css";
 import "./index.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 
 function App() {
   
-  const [count, setCount] = useState(10);
-  const [dato, setDato] = useState("Sergio");
-  const [users, setUsers] = useState([{ id: 0, name: "Ruben" }]);
+  const [date, setDate] = useState(new Date());
+  const [seconds, setSeconds] = useState(0);
 
-  const onClick = () => {  };
+  
+  useEffect(() => {
+    let interval = null;
+    
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+    
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
+
+
+
+  useEffect(() => {
+    var timerID = setInterval( () => tick(), 1000 );
+  
+    return function cleanup() {
+        clearInterval(timerID);
+      };
+   });
+  
+     function tick() {
+      setDate(new Date());
+     }
+  
+     
 
   return (
     <div>
-      <input type="button" onClick={onClick} value="Update" />
-      <div>
-        {users.map((e) => (
-          <div>
-            {e.id} - {e.name}
-          </div>
-        ))}
-      </div>
+      {seconds}
+      <h2>It is {date.toLocaleTimeString()}.</h2>
+      
     </div>
   );
 }
