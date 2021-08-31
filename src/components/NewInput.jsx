@@ -3,7 +3,7 @@ import React from "react";
 const NewInput = (props) =>
   
 (
-    <input {...props} />
+    <input type="button" onClick={onClick} value="Update" />
 )
 
 export default NewInput;
