@@ -15,15 +15,15 @@ function App() {
   };
 
 
-  // var datos = {
-  //   type: "button",
-  //   value: "Insertar",
-  // };
+  var datos = {
+    type: "button",
+    value: "Insertar",
+  };
   
 
   return (
     <div>
-      <input type="button" onClick={onClick} value="Update" />
+      <NewInput  onClick={onClick} {...datos} />
       <div>
         {users.map((e) => (
           <div>
