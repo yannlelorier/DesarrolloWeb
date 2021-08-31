@@ -6,91 +6,102 @@ import {
   Link
 } from "react-router-dom";
 
-// Each logical "route" has two components, one for
-// the sidebar and one for the main area. We want to
-// render both of them in different places when the
-// path matches the current URL.
+// Some folks find value in a centralized route config.
+// A route config is just data. React is great at mapping
+// data into components, and <Route> is a component.
 
-// We are going to use this route config in 2
-// spots: once for the sidebar and once in the main
-// content section. All routes are in the same
-// order they would appear in a <Switch>.
+// Our route config is just an array of logical "routes"
+// with `path` and `component` props, ordered the same
+// way you'd do inside a `<Switch>`.
 const routes = [
   {
-    path: "/",
-    exact: true,
-    sidebar: () => <div>home!</div>,
-    main: () => <h2>Home</h2>
+    path: "/sandwiches",
+    component: Sandwiches
   },
   {
-    path: "/bubblegum",
-    sidebar: () => <div>bubblegum!</div>,
-    main: () => <h2>Bubblegum</h2>
-  },
-  {
-    path: "/shoelaces",
-    sidebar: () => <div>shoelaces!</div>,
-    main: () => <h2>Shoelaces</h2>
+    path: "/tacos",
+    component: Tacos,
+    routes: [
+      {
+        path: "/tacos/bus",
+        component: Bus
+      },
+      {
+        path: "/tacos/cart",
+        component: Cart
+      }
+    ]
   }
 ];
 
-export default function SidebarExample() {
+export default function RouteConfigExample() {
   return (
     <Router>
-      <div style={{ display: "flex" }}>
-        <div
-          style={{
-            padding: "10px",
-            width: "40%",
-            background: "#f0f0f0"
-          }}
-        >
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/bubblegum">Bubblegum</Link>
-            </li>
-            <li>
-              <Link to="/shoelaces">Shoelaces</Link>
-            </li>
-          </ul>
+      <div>
+        <ul>
+          <li>
+            <Link to="/tacos">Tacos</Link>
+          </li>
+          <li>
+            <Link to="/sandwiches">Sandwiches</Link>
+          </li>
+        </ul>
 
-          <Switch>
-            {routes.map((route, index) => (
-              // You can render a <Route> in as many places
-              // as you want in your app. It will render along
-              // with any other <Route>s that also match the URL.
-              // So, a sidebar or breadcrumbs or anything else
-              // that requires you to render multiple things
-              // in multiple places at the same URL is nothing
-              // more than multiple <Route>s.
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                children={<route.sidebar />}
-              />
-            ))}
-          </Switch>
-        </div>
-
-        <div style={{ flex: 1, padding: "10px" }}>
-          <Switch>
-            {routes.map((route, index) => (
-              // Render more <Route>s with the same paths as
-              // above, but different components this time.
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                children={<route.main />}
-              />
-            ))}
-          </Switch>
-        </div>
+        <Switch>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+        </Switch>
       </div>
     </Router>
   );
+}
+
+// A special wrapper for <Route> that knows how to
+// handle "sub"-routes by passing them in a `routes`
+// prop to the component it renders.
+function RouteWithSubRoutes(route) {
+  return (
+    <Route
+      path={route.path}
+      render={props => (
+        // pass the sub-routes down to keep nesting
+        <route.component {...props} routes={route.routes} />
+      )}
+    />
+  );
+}
+
+function Sandwiches() {
+  return <h2>Sandwiches</h2>;
+}
+
+function Tacos({ routes }) {
+  return (
+    <div>
+      <h2>Tacos</h2>
+      <ul>
+        <li>
+          <Link to="/tacos/bus">Bus</Link>
+        </li>
+        <li>
+          <Link to="/tacos/cart">Cart</Link>
+        </li>
+      </ul>
+
+      <Switch>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </Switch>
+    </div>
+  );
+}
+
+function Bus() {
+  return <h3>Bus</h3>;
+}
+
+function Cart() {
+  return <h3>Cart</h3>;
 }
