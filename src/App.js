@@ -8,38 +8,37 @@ function App() {
   
   const [date, setDate] = useState(new Date());
   const [seconds, setSeconds] = useState(0);
+  const [minutos, setMinutos] = useState(0);
+  const [horas, setHoras] = useState(0);
 
   
   useEffect(() => {
     let interval = null;
     
       interval = setInterval(() => {
+        if (seconds > 59){
+          setMinutos(minutos => minutos + 1);  
+          setSeconds(0);
+        }
+        else if (minutos>59){
+          setHoras(horas => horas + 1);  
+          setMinutos(0);  
+          setSeconds(0);
+
+        }
+        else{
         setSeconds(seconds => seconds + 1);
-      }, 1000);
+        }
+      }, 100);
     
     return () => clearInterval(interval);
   });
 
-
-
-  useEffect(() => {
-    var timerID = setInterval( () => tick(), 1000 );
   
-    return function cleanup() {
-        clearInterval(timerID);
-      };
-   });
-  
-     function tick() {
-      setDate(new Date());
-     }
-  
-     
-
   return (
     <div>
-      {seconds}
-      <h2>It is {date.toLocaleTimeString()}.</h2>
+      {horas} - {minutos} - {seconds}
+      
       
     </div>
   );
