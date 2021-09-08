@@ -63,10 +63,24 @@ function App() {
         {/* Termina el  Navbar principal */}        
       </Navbar>
 
+      {/* Agregar componentes no visibles */}
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      
+
+      {/*  */}
+
+
+
+
       <Switch>
         <Route path={"/tacos"} component={Tacos} />
         <Route path={"/sandwiches"} component={Sandwiches} />
       </Switch>
+      
     </Router>
   );
 }
