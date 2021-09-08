@@ -13,6 +13,10 @@ import {
 function App() {
   return (
     <Router>
+      {/* Navbar principal */}
+
+
+      {/* Navbar franja negra */}
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">
           <img
@@ -24,7 +28,10 @@ function App() {
           />{" "}
           SAI
         </Navbar.Brand>
+        {/* Termina Navbar franja negra */}
 
+
+        {/* Links de navegacion */}
         <Nav defaultActiveKey="/">
           <Nav.Item>
             <Nav.Link eventKey="Tacos">
@@ -36,9 +43,11 @@ function App() {
               <Link to="/sandwiches">Sandwiches</Link>
             </Nav.Link>
           </Nav.Item>
-          
         </Nav>
+        {/* Terminan Links de navegacion */}
 
+
+        {/* Links de navegacion derecha */}
         <Navbar.Collapse className="justify-content-end">
           <NavDropdown title={"Ruben"} id="collasible-nav-dropdown">
             <NavDropdown.Item>Home</NavDropdown.Item>
@@ -48,8 +57,10 @@ function App() {
             <NavDropdown.Item>Info</NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>
+        {/* Termina Links de navegacion derecha */}
 
-        
+
+        {/* Termina el  Navbar principal */}        
       </Navbar>
 
       <Switch>
