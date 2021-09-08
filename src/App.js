@@ -26,10 +26,25 @@ function App() {
             SAI
           </Navbar.Brand>
         </Container>
-      </Navbar>
 
-      <Link to="/tacos">Tacos</Link>
-      <Link to="/sandwiches">Sandwiches</Link>
+        <Nav defaultActiveKey="/">
+          <Nav.Item>
+            <Nav.Link eventKey="Tacos">
+              <Link to="/tacos">Tacos</Link>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="Sandwiches">
+              <Link to="/sandwiches">Sandwiches</Link>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="disabled" disabled>
+              Disabled
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </Navbar>
 
       <Switch>
         <Route path={"/tacos"} component={Tacos} />
