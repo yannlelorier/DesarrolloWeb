@@ -14,18 +14,16 @@ function App() {
   return (
     <Router>
       <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src="https://react-bootstrap.github.io/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{" "}
-            SAI
-          </Navbar.Brand>
-        </Container>
+        <Navbar.Brand href="/">
+          <img
+            alt=""
+            src="https://react-bootstrap.github.io/logo.svg"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{" "}
+          SAI
+        </Navbar.Brand>
 
         <Nav defaultActiveKey="/">
           <Nav.Item>
@@ -38,12 +36,20 @@ function App() {
               <Link to="/sandwiches">Sandwiches</Link>
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="disabled" >
-              <p>Disabled </p>
-            </Nav.Link>
-          </Nav.Item>
+          
         </Nav>
+
+        <Navbar.Collapse className="justify-content-end">
+          <NavDropdown title={"Ruben"} id="collasible-nav-dropdown">
+            <NavDropdown.Item>Home</NavDropdown.Item>
+            <NavDropdown.Item>Another action</NavDropdown.Item>
+            <NavDropdown.Item>Something</NavDropdown.Item>
+            <NavDropdown.Item> Launch </NavDropdown.Item>
+            <NavDropdown.Item>Info</NavDropdown.Item>
+          </NavDropdown>
+        </Navbar.Collapse>
+
+        
       </Navbar>
 
       <Switch>
