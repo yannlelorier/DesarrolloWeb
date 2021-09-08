@@ -39,8 +39,8 @@ function App() {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="disabled" disabled>
-              Disabled
+            <Nav.Link eventKey="disabled" >
+              <p>Disabled </p>
             </Nav.Link>
           </Nav.Item>
         </Nav>
