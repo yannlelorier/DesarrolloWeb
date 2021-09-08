@@ -15,7 +15,6 @@ function App() {
     <Router>
       {/* Navbar principal */}
 
-
       {/* Navbar franja negra */}
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">
@@ -29,7 +28,6 @@ function App() {
           SAI
         </Navbar.Brand>
         {/* Termina Navbar franja negra */}
-
 
         {/* Links de navegacion */}
         <Nav defaultActiveKey="/">
@@ -46,7 +44,6 @@ function App() {
         </Nav>
         {/* Terminan Links de navegacion */}
 
-
         {/* Links de navegacion derecha */}
         <Navbar.Collapse className="justify-content-end">
           <NavDropdown title={"Ruben"} id="collasible-nav-dropdown">
@@ -59,8 +56,7 @@ function App() {
         </Navbar.Collapse>
         {/* Termina Links de navegacion derecha */}
 
-
-        {/* Termina el  Navbar principal */}        
+        {/* Termina el  Navbar principal */}
       </Navbar>
 
       {/* Agregar componentes no visibles */}
@@ -69,18 +65,13 @@ function App() {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-      
 
       {/*  */}
-
-
-
 
       <Switch>
         <Route path={"/tacos"} component={Tacos} />
         <Route path={"/sandwiches"} component={Sandwiches} />
       </Switch>
-      
     </Router>
   );
 }
