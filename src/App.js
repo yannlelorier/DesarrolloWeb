@@ -1,87 +1,129 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 import {
   Container,
   Navbar,
   Nav,
+  Col,
+  Image,
   NavDropdown,
-  Button,
-  Modal,
-  Offcanvas,
+  Carousel,
 } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+
+import Tacos from "./routers/TacosRouters";
+import Sandwiches from "./routers/SandwichesRouters";
+import MyOffSet from "./components/MyOffSet";
+import Loading from "./components/Loading";
+import MyVerticallyCenteredModal from "./components/MyVerticallyCenteredModal";
+
+import MyButton from "./components/MyButton";
 
 function App() {
+  const [modalShow, setModalShow] = useState(false);
+  const [btnActivo, setBtnActivo] = useState("Cargando");
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const [nombres, setNombres] = useState([]);
+
+  const handleSelect = () => {
+    setModalShow(true);
+  };
+
+  const handleSelectFromButton = (props) => {
+    console.log(props.target.id);
+    setBtnActivo(props.target.id);
+    setModalShow(true);
+  };
+
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+      setNombres(res.data);
+    });
+  }, []);
+
   return (
     <Router>
-      {/* Navbar principal */}
+      <Navbar
+        style={{ paddingLeft: 20, paddingRight: 20 }}
+        sticky="top"
+        collapseOnSelect
+        bg="dark"
+        variant="dark"
+        expand="md"
+      >
+        <LinkContainer to="/tacos">
+          <Navbar.Brand href="#home">
+            {" "}
+            <img
+              alt=""
+              src="https://react-bootstrap.github.io/logo.svg"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{" "}
+            SAI
+          </Navbar.Brand>
+        </LinkContainer>
 
-      {/* Navbar franja negra */}
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">
-          <img
-            alt=""
-            src="https://react-bootstrap.github.io/logo.svg"
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />{" "}
-          SAI
-        </Navbar.Brand>
-        {/* Termina Navbar franja negra */}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <LinkContainer to="/tacos">
+              <Nav.Link>Tacos</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/sandwiches">
+              <Nav.Link>Sandwiches</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/sandwiches">
+              <Nav.Link>{btnActivo}</Nav.Link>
+            </LinkContainer>
+            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+              <NavDropdown.Item onClick={() => handleShow()}>
+                Action
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={() => handleSelect()}>
+                Separated link
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
 
-        {/* Links de navegacion */}
-        <Nav defaultActiveKey="/">
-          <Nav.Item>
-            <Nav.Link eventKey="Tacos">
-              <Link to="/tacos">Tacos</Link>
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="Sandwiches">
-              <Link to="/sandwiches">Sandwiches</Link>
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
-        {/* Terminan Links de navegacion */}
-
-        {/* Links de navegacion derecha */}
-        <Navbar.Collapse className="justify-content-end">
-          <NavDropdown title={"Ruben"} id="collasible-nav-dropdown">
-            <NavDropdown.Item>Home</NavDropdown.Item>
-            <NavDropdown.Item>Another action</NavDropdown.Item>
-            <NavDropdown.Item>Something</NavDropdown.Item>
-            <NavDropdown.Item> Launch </NavDropdown.Item>
-            <NavDropdown.Item>Info</NavDropdown.Item>
-          </NavDropdown>
+          <MyButton
+            _handleSelectFromButton={(a) => handleSelectFromButton(a)}
+          />
         </Navbar.Collapse>
-        {/* Termina Links de navegacion derecha */}
-
-        {/* Termina el  Navbar principal */}
       </Navbar>
-
-      {/* Agregar componentes no visibles */}
-
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
 
-      {/*  */}
+      <MyOffSet show={show} onHide={() => setShow(false)} />
 
-      <Switch>
-        <Route path={"/tacos"} component={Tacos} />
-        <Route path={"/sandwiches"} component={Sandwiches} />
-      </Switch>
+
+        <Switch>
+          <Route path={"/tacos"}>
+            {nombres.length === 0 || nombres.length === null ? (
+              <Loading />
+            ) : (
+              <u>
+                <Tacos data={nombres} />{" "}
+              </u>
+            )}
+          </Route>
+          <Route path={"/sandwiches"}>
+            {nombres.length === 0 || nombres.length === null ? (
+              <Loading />
+            ) : (
+              <Sandwiches data={nombres} />
+            )}
+          </Route>
+        </Switch>
+      
     </Router>
   );
-}
-
-function Sandwiches() {
-  return <h2>Sandwiches</h2>;
-}
-
-function Tacos(data) {
-  return <h2>Tacos</h2>;
 }
 
 export default App;
