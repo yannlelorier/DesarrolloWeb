@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 
-export default function Sandwiches({ data }) {
+function Sandwiches({ data }) {
+  console.log(data);
+
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -17,12 +19,13 @@ export default function Sandwiches({ data }) {
       id={index}
       activeIndex={index}
       onSelect={handleSelect}
+      keyboard={true}
     >
       {data.map((a) => (
-        <Carousel.Item interval={1000}>
+        <Carousel.Item interval={2000}>
           <img
             className="d-block w-100"
-            src="https://picsum.photos/20/20"
+            src="https://picsum.photos/200/300?random=1"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -34,3 +37,5 @@ export default function Sandwiches({ data }) {
     </Carousel>
   );
 }
+
+export default Sandwiches;

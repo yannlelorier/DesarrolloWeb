@@ -9,6 +9,7 @@ import {
   Image,
   NavDropdown,
   Carousel,
+  Row,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -19,6 +20,10 @@ import Loading from "./components/Loading";
 import MyVerticallyCenteredModal from "./components/MyVerticallyCenteredModal";
 
 import MyButton from "./components/MyButton";
+//todo
+import useTodoState from "./functions/useTodoState";
+import TodoForm from "./components/todo/TodoForm";
+import TodoList from "./components/todo/TodoList";
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
@@ -26,6 +31,9 @@ function App() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const [nombres, setNombres] = useState([]);
+
+  //todo
+  const { todos, addTodo, deleteTodo } = useTodoState([]);
 
   const handleSelect = () => {
     setModalShow(true);
@@ -102,26 +110,45 @@ function App() {
 
       <MyOffSet show={show} onHide={() => setShow(false)} />
 
+      <Switch>
+        <Route path={"/tacos"}>
+          {nombres.length === 0 || nombres.length === null ? (
+            <Loading />
+          ) : (
+            <Container style={{ padding: 30 }}>
+              <TodoForm
+                saveTodo={(todoText) => {
+                  const trimmedText = todoText.trim();
 
-        <Switch>
-          <Route path={"/tacos"}>
-            {nombres.length === 0 || nombres.length === null ? (
-              <Loading />
-            ) : (
+                  if (trimmedText.length > 0) {
+                    addTodo(trimmedText);
+                  }
+                }}
+              />
+
+              <TodoList todos={todos} deleteTodo={deleteTodo} />
+
               <u>
                 <Tacos data={nombres} />{" "}
               </u>
-            )}
-          </Route>
-          <Route path={"/sandwiches"}>
-            {nombres.length === 0 || nombres.length === null ? (
-              <Loading />
-            ) : (
-              <Sandwiches data={nombres} />
-            )}
-          </Route>
-        </Switch>
-      
+
+            </Container>
+          )}
+        </Route>
+        <Route path={"/sandwiches"}>
+          {nombres.length === 0 || nombres.length === null ? (
+            <Loading />
+          ) : (
+            <Container style={{ padding: 30 }}>
+              <Row>
+                <Col>
+                  <Sandwiches data={nombres} />
+                </Col>
+              </Row>
+            </Container>
+          )}
+        </Route>
+      </Switch>
     </Router>
   );
 }
