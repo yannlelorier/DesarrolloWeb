@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 
-function Sandwiches({ data }) {
+function Formulario({ data }) {
   console.log(data);
 
   const [index, setIndex] = useState(0);
@@ -38,4 +38,4 @@ function Sandwiches({ data }) {
   );
 }
 
-export default Sandwiches;
+export default Formulario;

@@ -2,7 +2,7 @@ import { Offcanvas } from "react-bootstrap";
 
 export default function MyOffSet(props) {
   return (
-    <Offcanvas show={props.show} onHide={props.onHide} placement={"bottom"}>
+    <Offcanvas  placement={"bottom"}>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Offcanvas</Offcanvas.Title>
       </Offcanvas.Header>
