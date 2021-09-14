@@ -30,18 +30,6 @@ function App() {
   //   setModalShow(true);
   // };
 
-  const [state, setState] = useState("");
-  const [stateModel, setStateModel] = useState({
-    name: "",
-    lastName: "",
-    age: 0,
-    email: "",
-  });
-
-  function setData(e) {
-    stateModel.name = e.target.value;
-  }
-
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {});
   }, []);
@@ -107,7 +95,7 @@ function App() {
         </Route>
         <Route path={"/Formulario"}>
           <Container style={{ padding: 20 }}>
-            <input id="1" placeholder={"Nombre"} onChange={(e) => setData(e)} />
+            <input  placeholder={"Nombre"} />
           </Container>
         </Route>
       </Switch>
