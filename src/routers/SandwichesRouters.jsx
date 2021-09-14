@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 
 function Sandwiches({ data }) {
-  console.log(data);
-
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -25,7 +23,7 @@ function Sandwiches({ data }) {
         <Carousel.Item interval={2000}>
           <img
             className="d-block w-100"
-            src="https://picsum.photos/200/300?random=1"
+            src="https://picsum.photos/100/100?random=1"
             alt="First slide"
           />
           <Carousel.Caption>

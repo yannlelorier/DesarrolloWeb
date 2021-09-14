@@ -1,15 +1,20 @@
-import { Col, Image } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+
 export default function MyButton(params) {
   //   return <button value="miValor" id="miId" onClick={(a) => console.log(a.target.value)}>Hola</button>;
   return (
-    
-      <Image
+    <section>
+      <ShoppingCartOutlinedIcon
         value="miValor"
-        id="BotonHijo"
+        id="Carrito"
         onClick={(a) => params._handleSelectFromButton(a)}
-        src="https://picsum.photos/40/40?random=1"
-        roundedCircle
+        style={{ color: "white" }}
+        fontSize="large"
       />
-    
+      <Badge pill bg="danger">
+        {params.todos.length}
+      </Badge>
+    </section>
   );
 }

@@ -1,4 +1,5 @@
 import { Offcanvas } from "react-bootstrap";
+import TodoList from "../components/todo/TodoList";
 
 export default function MyOffSet(props) {
   return (
@@ -7,8 +8,7 @@ export default function MyOffSet(props) {
         <Offcanvas.Title>Offcanvas</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        Some text as placeholder. In real life you can have the elements you
-        have chosen. Like, text, images, lists, etc.
+        <TodoList todos={props.todos} deleteTodo={props.deleteTodo} />
       </Offcanvas.Body>
     </Offcanvas>
   );
