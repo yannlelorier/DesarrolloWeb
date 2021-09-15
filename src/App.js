@@ -40,20 +40,22 @@ function App() {
     console.log(stateModel);
   }
 
-  // const [modalShow, setModalShow] = useState(false);
-  // const [btnActivo, setBtnActivo] = useState("Cargando");
-  // const [show, setShow] = useState(false);
-  // const handleShow = () => setShow(true);
+  const [modalShow, setModalShow] = useState(false);
+  const [btnActivo, setBtnActivo] = useState("Cargando");
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
-  // const handleSelect = () => {
-  //   setModalShow(true);
-  // };
+  const handleSelect = () => {
+    setModalShow(true);
+  };
 
-  // const handleSelectFromButton = (props) => {
-  //   console.log(props.target.id);
-  //   setBtnActivo(props.target.id);
-  //   setModalShow(true);
-  // };
+  const handleSelectFromButton = (props) => {
+    console.log(props.target.id);
+    console.log(props.target.value);
+
+    setBtnActivo(props.target.id);
+    setModalShow(true);
+  };
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
@@ -95,9 +97,9 @@ function App() {
             <LinkContainer to="/formulario">
               <Nav.Link>Formulario</Nav.Link>
             </LinkContainer>
-            {/* <LinkContainer to="/Formulario">
+            <LinkContainer to="/Formulario">
               <Nav.Link>{btnActivo}</Nav.Link>
-            </LinkContainer> */}
+            </LinkContainer>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               {/* <NavDropdown.Item onClick={() => handleShow()}>
                 Canva
@@ -109,7 +111,11 @@ function App() {
             </NavDropdown>
           </Nav>
 
-          {/* <MyButton /> */}
+          <MyButton
+            nombres={nombres}
+            _handleSelectFromButton={(a) => handleSelectFromButton(a)}
+
+          />
         </Navbar.Collapse>
       </Navbar>
 
@@ -117,7 +123,7 @@ function App() {
         <Route path={"/usuarios"}>
           <Container style={{ padding: 30 }}>
             <u>
-              <Usuarios nombre={...nombres} data={nombres} />{" "}
+              <Usuarios data={nombres} />{" "}
             </u>
           </Container>
         </Route>
