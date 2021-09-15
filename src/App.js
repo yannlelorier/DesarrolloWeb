@@ -101,15 +101,23 @@ function App() {
               <Nav.Link>{btnActivo}</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item onClick={() => handleShow()}>
+              <NavDropdown.Item onClick={() => handleShow()}>
                 Canva
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => handleSelect()}>
                 Modal
-              </NavDropdown.Item> */}
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+
+          <MyVerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            nombres={nombres}
+            // deleteTodo={deleteTodo}
+            // _handleClick={(a) => handleClick(a)}
+          /> 
 
           <MyButton
             nombres={nombres}
@@ -122,9 +130,6 @@ function App() {
       <Switch>
         <Route path={"/usuarios"}>
           <Container style={{ padding: 30 }}>
-            <u>
-              <Usuarios data={nombres} />{" "}
-            </u>
           </Container>
         </Route>
         <Route path={"/Formulario"}>
