@@ -117,7 +117,7 @@ function App() {
         <Route path={"/usuarios"}>
           <Container style={{ padding: 30 }}>
             <u>
-              <Usuarios data={nombres} />{" "}
+              <Usuarios nombre={...nombres} data={nombres} />{" "}
             </u>
           </Container>
         </Route>
